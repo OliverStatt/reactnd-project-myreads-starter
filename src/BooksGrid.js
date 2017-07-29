@@ -10,7 +10,7 @@ class BooksGrid extends React.Component {
                      <li key={b.id}>
                          <div className="book">
                            <div className="book-top">
-                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${b.imageLinks.smallThumbnail})` }}></div>
+                             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${(b.imageLinks) && (b.imageLinks.smallThumbnail) && b.imageLinks.smallThumbnail})` }}></div>
                              <div className="book-shelf-changer">
                                <select value={b.shelf} onChange={(event) => {
                                  this.props.onChangeSelection(event.target.value, b)

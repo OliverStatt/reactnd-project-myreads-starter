@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf'
 
 
-class ListBooks extends React.Component {
- render() {
+const ListBooks = ({ books, onChangeSelection }) => {
+  const shelves = { currentlyReading: "Currently Reading", read: "Read", wantToRead: "Want to Read"}
   return (
    <div className="list-books">
             <div className="list-books-title">
@@ -12,9 +12,16 @@ class ListBooks extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf title="Currently Reading" books={this.props.books.filter((b) => b.shelf === "currentlyReading")} onChangeSelection={this.props.onChangeSelection}/>
-                <BookShelf title="Want to Read" books={this.props.books.filter((b) => b.shelf === "wantToRead")} onChangeSelection={this.props.onChangeSelection}/>
-                <BookShelf title="Read" books={this.props.books.filter((b) => b.shelf === "read")} onChangeSelection={this.props.onChangeSelection}/>
+                {Object.keys(shelves).map(shelfKey => 
+                 <BookShelf 
+                    title={shelves[shelfKey]}
+                    books={books.filter((book) => book.shelf === shelfKey)}
+                    onChangeSelection={onChangeSelection}
+                    key={shelfKey}
+                    />
+
+                )}
+               
             </div>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
@@ -23,6 +30,5 @@ class ListBooks extends React.Component {
    </div>
   )
  }
-}
 
 export default ListBooks

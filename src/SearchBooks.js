@@ -17,10 +17,19 @@ class SearchBooks extends React.Component {
  }
 
  search = (query) => {
-  BooksAPI.search(query, 20).then((result) => {
-   if( result && (result.length > 0) ) {
-    this.setState({books: result})
-            
+  BooksAPI.search(query, 20).then((results) => {
+   if( results && (results.length > 0) ) {
+   
+    // look if a book in search results is also already on our homepage. if so => update the shelf property
+    results.forEach(bookInSearchResult => {
+       bookInSearchResult.shelf = "none"
+       this.props.books.forEach(bookInHomepage => {
+        if(bookInSearchResult.id === bookInHomepage.id) {
+          bookInSearchResult.shelf = bookInHomepage.shelf
+        }
+      })
+    })
+    this.setState({books: results})     
    }
   })
  } 

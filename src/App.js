@@ -38,10 +38,7 @@ class BooksApp extends React.Component {
       })
     }
 
-    BooksAPI.update(book, newShelf).then(response => { 
-      console.log(response)
-
-     })
+    BooksAPI.update(book, newShelf)
   }
 
   render() {
